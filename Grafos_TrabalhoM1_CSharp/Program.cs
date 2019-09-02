@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Grafos_TrabalhoM1_CSharp.Entities;
-using Grafos_TrabalhoM1_CSharp.Entities.Grafo;
+using Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage;
 
 namespace Grafos_TrabalhoM1_CSharp
 {
@@ -10,7 +10,7 @@ namespace Grafos_TrabalhoM1_CSharp
     {
         static void Main(string[] args)
         {
-           
+            
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Grafos_TrabalhoM1_CSharp.Entities.Grafo
+namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 {
     abstract class Grafo
     {
@@ -15,6 +15,8 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.Grafo
             Direcionado = direcionado;
             Ponderado = ponderado;
         }
+
+        abstract public bool InserirVertice();
 
         //Djsktra, Profundidade, Largura
     }
