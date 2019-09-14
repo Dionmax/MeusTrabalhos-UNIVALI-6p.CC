@@ -18,6 +18,16 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 
         abstract public bool InserirVertice();
 
+        abstract public void MostrarVizinhos();
+
+        abstract public void BuscaLargura();
+
+        abstract public void BuscaProfundidade();
+
+        abstract public void Djsktra();
+
+        abstract public bool GrafoPlanar(); // Depois 
+
         //Djsktra, Profundidade, Largura
     }
 }
