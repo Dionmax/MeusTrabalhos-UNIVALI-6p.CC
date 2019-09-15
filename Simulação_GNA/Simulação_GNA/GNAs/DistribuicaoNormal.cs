@@ -6,9 +6,9 @@ namespace Simulação_GNA.GNAs
 {
     class DistribuicaoNormal : IDistribuicao
     {
-        public int Media { get; set; }
+        public float Media { get; set; }
 
-        public int Variancia { get; set; }
+        public float Variancia { get; set; }
 
         public int Repeticoes { get; set; }
 
@@ -16,13 +16,13 @@ namespace Simulação_GNA.GNAs
 
         public DistribuicaoNormal()
         {
-            Media = 5;
-            Variancia = 2;
-            Repeticoes = 1000;
+            Media = 5.5F;
+            Variancia = 2.1F;
+            Repeticoes = 2000;
             _numeroRandom = new Random();
         }
 
-        public DistribuicaoNormal(int media, int variancia, int repeticoes)
+        public DistribuicaoNormal(float media, float variancia, int repeticoes)
         {
             Media = media;
             Variancia = variancia;

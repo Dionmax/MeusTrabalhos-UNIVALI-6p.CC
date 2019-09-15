@@ -15,9 +15,9 @@ namespace Simulação_GNA.GNAs
 
         public DistribuicaoUniforme()
         {
-            LimiteSuperior = 5;
-            LimiteInferior = 0;
-            Repeticoes = 1000;
+            LimiteSuperior = 6;
+            LimiteInferior = 2;
+            Repeticoes = 2000;
             _numeroRandom = new Random();
         }
 

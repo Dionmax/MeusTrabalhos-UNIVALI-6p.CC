@@ -20,7 +20,7 @@ namespace Simulação_GNA.GNAs
             LimiteSuperior = 6;
             LimiteInferior = 0;
             Moda = 3;
-            Repeticoes = 1000;
+            Repeticoes = 2000;
             _numeroRandom = new Random();
         }
 

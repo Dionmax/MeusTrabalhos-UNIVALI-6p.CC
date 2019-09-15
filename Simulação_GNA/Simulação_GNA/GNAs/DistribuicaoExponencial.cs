@@ -6,7 +6,7 @@ namespace Simulação_GNA.GNAs
 {
     class DistribuicaoExponencial : IDistribuicao
     {
-        public int ValorMedio { get; set; }
+        public float ValorMedio { get; set; }
 
         public int Repeticoes { get; set; }
 
@@ -14,12 +14,12 @@ namespace Simulação_GNA.GNAs
 
         public DistribuicaoExponencial()
         {
-            ValorMedio = 5;
-            Repeticoes = 1000;
+            ValorMedio = 5.5F;
+            Repeticoes = 2000;
             _numeroRandom = new Random();
         }
 
-        public DistribuicaoExponencial(int valorMedio, int repeticoes)
+        public DistribuicaoExponencial(float valorMedio, int repeticoes)
         {
             ValorMedio = valorMedio;
             Repeticoes = repeticoes;
