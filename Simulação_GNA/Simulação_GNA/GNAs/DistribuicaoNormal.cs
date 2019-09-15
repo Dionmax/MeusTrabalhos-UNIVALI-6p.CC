@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Simulação_GNA.GNAs
 {
-    class DistribuicaoNormal
+    class DistribuicaoNormal : IDistribuicao
     {
         public int Media { get; set; }
 

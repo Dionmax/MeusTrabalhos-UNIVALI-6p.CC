@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Simulação_GNA.GNAs
 {
-    class DistribuicaoUniforme
+    class DistribuicaoUniforme : IDistribuicao
     {
         public int LimiteSuperior { get; set; }
 

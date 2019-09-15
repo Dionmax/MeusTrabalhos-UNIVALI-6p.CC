@@ -12,11 +12,12 @@ namespace Simulação_GNA
         {
             string path = "C:\\Temp\\Saida.txt";
 
-            DistribuicaoUniforme uniforme = new DistribuicaoUniforme();
-            DistribuicaoTriangular triangular = new DistribuicaoTriangular();
-            DistribuicaoNormal normal = new DistribuicaoNormal();
+            IDistribuicao uniforme = new DistribuicaoUniforme();
+            IDistribuicao triangular = new DistribuicaoTriangular();
+            IDistribuicao normal = new DistribuicaoNormal();
+            IDistribuicao exponencial = new DistribuicaoExponencial();
 
-            var Algo = normal.GerarNumeros();
+            var Algo = exponencial.GerarNumeros();
 
             try
             {
