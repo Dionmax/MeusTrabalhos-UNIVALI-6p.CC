@@ -69,8 +69,8 @@ namespace Simulação_GNA
                         Console.Write("Valor Médio: ");
                         var v5 = float.Parse(Console.ReadLine());
 
-                        Console.Write("Variância (0 para nenhuma): ");
-                        v1 = int.Parse(Console.ReadLine());
+                        Console.Write("Valor minimo (0 para nenhum): ");
+                        v1 = Math.Abs(int.Parse(Console.ReadLine()));
 
                         Console.Write("Repetições: ");
                         repeticoes = int.Parse(Console.ReadLine());

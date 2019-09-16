@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Simulação_GNA.GNAs
 {
@@ -8,7 +7,7 @@ namespace Simulação_GNA.GNAs
     {
         public float ValorMedio { get; set; }
 
-        public int Variancia { get; set; }
+        public int ValorMinimo { get; set; }
 
         public int Repeticoes { get; set; }
 
@@ -17,7 +16,7 @@ namespace Simulação_GNA.GNAs
         public DistribuicaoExponencial()
         {
             ValorMedio = 5.5F;
-            Variancia = 0;
+            ValorMinimo = 0;
             Repeticoes = 2000;
             _numeroRandom = new Random();
         }
@@ -25,7 +24,7 @@ namespace Simulação_GNA.GNAs
         public DistribuicaoExponencial(float valorMedio, int variancia, int repeticoes)
         {
             ValorMedio = valorMedio;
-            Variancia = variancia;
+            ValorMinimo = variancia;
             Repeticoes = repeticoes;
             _numeroRandom = new Random();
         }
@@ -40,7 +39,7 @@ namespace Simulação_GNA.GNAs
             {
                 double nR = _numeroRandom.NextDouble();
 
-                n = Variancia - (ValorMedio - Variancia) * Math.Log(nR);
+                n = ValorMinimo - (ValorMedio - ValorMinimo) * Math.Log(nR);
 
                 listGerada.Add(n);
             }
