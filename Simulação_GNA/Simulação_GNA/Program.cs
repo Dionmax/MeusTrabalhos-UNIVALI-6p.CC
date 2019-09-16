@@ -69,10 +69,13 @@ namespace Simulação_GNA
                         Console.Write("Valor Médio: ");
                         var v5 = float.Parse(Console.ReadLine());
 
+                        Console.Write("Variância (0 para nenhuma): ");
+                        v1 = int.Parse(Console.ReadLine());
+
                         Console.Write("Repetições: ");
                         repeticoes = int.Parse(Console.ReadLine());
 
-                        distribuicao = new DistribuicaoExponencial(v5, repeticoes);
+                        distribuicao = new DistribuicaoExponencial(v5, v1, repeticoes);
                         Algo = distribuicao.GerarNumeros();
                         break;
 
