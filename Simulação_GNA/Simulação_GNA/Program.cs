@@ -107,7 +107,7 @@ namespace Simulação_GNA
 
             try
             {
-                string path = "C:\\Temp\\Saida.txt";
+                string path = "C:\\Saida.txt";
 
                 using (StreamWriter sw = File.AppendText(path))
                 {
@@ -116,6 +116,8 @@ namespace Simulação_GNA
                         sw.WriteLine(line.ToString(CultureInfo.InvariantCulture));
                     }
                 }
+
+                Console.WriteLine("Seu arquivo está disponivel em: " + path);
             }
             catch (IOException e)
             {
