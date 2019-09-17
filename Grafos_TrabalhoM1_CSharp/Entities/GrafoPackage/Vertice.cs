@@ -4,12 +4,21 @@ using System.Text;
 
 namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 {
-    class Vertice<T>
+    class Vertice
     {
-        public int Indice { get; set; }
+        public int Indice { get; private set; }
 
-        public T Dado { get; set; }
+        //  public T Dado { get; set; }
 
-        public List<Vertice<T>> VerticesVizinhas { get; set; }
+        public List<Aresta> VerticesVizinhas { get; set; }
+
+        public Vertice(int indice)
+        {
+            Indice = indice;
+            VerticesVizinhas = new List<Aresta>();
+        }
+
+        public override string ToString()
+            => Indice.ToString();
     }
 }

@@ -10,15 +10,23 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 
         public bool Ponderado { get; private set; }
 
+        public Grafo() { }
+
         public Grafo(bool direcionado, bool ponderado)
         {
             Direcionado = direcionado;
             Ponderado = ponderado;
         }
 
-        abstract public bool InserirVertice();
+        abstract public bool InserirVertice(int indice);
 
-        abstract public void MostrarVizinhos();
+        // abstract public bool InserirVertice<T>(int indice, T dado);
+
+        abstract public void InserirAresta(int vertice1, int vertice2);
+
+        abstract public void InserirAresta(int vertice1, int vertice2, int peso);
+
+        abstract public void MostrarVizinhos(int vertice);
 
         abstract public void BuscaLargura();
 
@@ -27,5 +35,7 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
         abstract public void Djsktra();
 
         abstract public bool GrafoPlanar(); // Depois 
+
+        abstract public List<Vertice> ListaVertices();
     }
 }

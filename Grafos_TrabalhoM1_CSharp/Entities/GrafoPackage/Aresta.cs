@@ -4,12 +4,23 @@ using System.Text;
 
 namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 {
-    class Aresta<T>
+    class Aresta
     {
-        public Vertice<T> NodoUm { get; set; }
+        public Vertice Nodo { get; set; }
 
         public int Peso { get; set; }
 
-        public Vertice<T> NodoDois { get; set; }
+        //  public Vertice NodoDois { get; set; }
+
+        public Aresta(Vertice nodo, int peso)
+        {
+            Nodo = nodo;
+            Peso = peso;
+        }
+
+        public override string ToString()
+        {
+            return $"Vertice {Nodo.Indice} - Peso: {Peso}";
+        }
     }
 }

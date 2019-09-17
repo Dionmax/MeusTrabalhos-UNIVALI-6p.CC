@@ -10,9 +10,20 @@ namespace Grafos_TrabalhoM1_CSharp
     {
         static void Main(string[] args)
         {
-            Grafo grafoLista = new GrafoLista(false,false);
+            Grafo grafoLista = new GrafoLista();
 
-            grafoLista.InserirVertice();
+            grafoLista.InserirVertice(2);
+            grafoLista.InserirVertice(3);
+            grafoLista.InserirVertice(4);
+            grafoLista.InserirVertice(5);
+
+            grafoLista.InserirAresta(2, 3);
+            grafoLista.InserirAresta(2, 4);
+            grafoLista.InserirAresta(2, 5);
+
+            grafoLista.MostrarVizinhos(2);
+            grafoLista.MostrarVizinhos(3);
+
         }
     }
 }
