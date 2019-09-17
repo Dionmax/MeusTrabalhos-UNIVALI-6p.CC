@@ -27,7 +27,5 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
         abstract public void Djsktra();
 
         abstract public bool GrafoPlanar(); // Depois 
-
-        //Djsktra, Profundidade, Largura
     }
 }

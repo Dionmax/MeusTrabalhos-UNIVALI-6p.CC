@@ -1,0 +1,30 @@
+create or replace function incidenciaPorDirecaoDoVento_1() returns setof varchar as
+$$
+declare
+	_incidenciaNorte decimal := 0;
+	_incidenciaSul decimal := 0;
+	_incidenciaOeste decimal := 0;
+	_incidenciaLeste decimal := 0;
+	
+	_count numeric :=  count(direcao) from condicaoVento;
+	aux record;
+begin
+	for aux in select * from condicaoVento loop
+		if descricaodirecaovento(aux.direcao) = 'Norte' then
+			_incidenciaNorte = _incidenciaNorte + 1;
+		elsif descricaodirecaovento(aux.direcao) = 'Sul' then
+			_incidenciaSul = _incidenciaSul + 1;
+		elsif descricaodirecaovento(aux.direcao) = 'Leste' then
+			_incidenciaLeste = _incidenciaLeste + 1;
+		elsif descricaodirecaovento(aux.direcao) = 'Oeste' then
+			_incidenciaOeste = _incidenciaOeste + 1;
+		end if;
+	end loop;
+	
+	return next ('Norte: ' || ROUND((_incidenciaNorte / _count)*100 , 2) || '%');
+	return next ('Sul: ' ||  ROUND((_incidenciaSul / _count)*100 , 2) || '%');
+	return next ('Leste: ' ||ROUND((_incidenciaLeste / _count)*100 , 2) || '%');
+	return next ('Oeste: ' || ROUND((_incidenciaOeste / _count)*100 , 2) || '%');
+end;
+$$
+language plpgsql;

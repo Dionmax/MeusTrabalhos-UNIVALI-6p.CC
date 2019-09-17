@@ -1,0 +1,43 @@
+create or replace function agendaHorario(_inicio timestamp, _duracao int, _cliente varchar) returns boolean as 
+$$
+declare
+	_horas time := _inicio;
+	_terminoHoras time := _horas + to_timestamp(ABS(_duracao)::varchar , 'MI')::time AT TIME ZONE 'BRT';
+	_diaSemana int := EXTRACT(DOW FROM _inicio);
+	_diaMesAno date := _inicio::timestamp::date;
+	_interator record;
+begin
+	-- Primeira Verificações (Horas e datas)
+	if _inicio < now() then
+		raise notice 'Impossivel cadastrar no passado.';
+		return false;
+	elsif _duracao < 30::int then
+		raise notice 'Horário minímo da consulta 30 min';
+		return false;
+	elsif not(_horas >= '08:00:00' and _horas < '12:00:00' or _horas >= '13:30:00' and _horas < '17:30:00') then
+		raise notice 'Hora inválida';
+		return false;
+	elsif _terminoHoras > '12:00:00' and _terminoHoras < '13:30:00' or _terminoHoras > '17:30:00' then
+		raise notice 'Horário ultrapassa expediente';
+		return false;
+	elsif _diaSemana = 0 or _diaSemana = 6 then
+		raise notice 'Dia inválido';
+		return false;
+	end if;
+	
+	-- Segunda Verificação (Horarios disponiveis)
+	for _interator in select * from agendamento where inicio >= _inicio - interval '1 hours' and termino::time <= _terminoHoras + interval '1 hours' loop
+		if _inicio >= _interator.inicio and _inicio < _interator.termino or 
+		_terminoHoras > _interator.inicio::time and _terminoHoras <= _interator.termino::time and
+			_interator.inicio::timestamp::date = _diaMesAno	then
+			raise notice 'Horario indisponivel para consulta.';
+			return false;
+		end if;
+	end loop;
+	
+	insert into agendamento(cliente, inicio, termino) values (_cliente, _inicio, _inicio + _duracao::varchar::interval * 60);	
+	return true;
+
+end;
+$$
+language plpgsql;

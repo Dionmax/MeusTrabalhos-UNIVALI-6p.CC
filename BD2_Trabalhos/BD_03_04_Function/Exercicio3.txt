@@ -1,0 +1,17 @@
+create or replace function descricaoDirecaoVento(_graus float) returns varchar as
+$$
+begin
+	if (_graus > 315 and _graus <= 360) or (_graus >= 0 and _graus <= 45) then
+		return 'Norte';
+	elsif (_graus > 45 and _graus <= 135) then
+		return 'Leste';
+	elsif (_graus > 135 and _graus <= 225) then
+		return 'Sul';
+	elsif (_graus > 225 and _graus <= 315) then
+		return 'Oeste';
+	else
+		raise exception 'Valores incorretos';
+	end if;
+end;
+$$
+language plpgsql;

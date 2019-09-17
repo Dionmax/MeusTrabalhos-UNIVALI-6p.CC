@@ -1,0 +1,40 @@
+create or replace function proximoHorarioVago(_duracao int) returns timestamp as 
+$$
+declare
+--	_now timestamp := '2019-09-01 13:30:00'; -- substituir depois por now()
+
+	_horaInicial timestamp := (select inicio from agendamento where inicio >= now() order by inicio limit 1);
+	_horaFinal timestamp := now();
+	_duracaoConsultaTime time := ABS( _duracao)::varchar::interval * 60;
+	_interator record;
+begin
+	if _duracao < 30 then
+		raise exception 'Horário da consulta não deve ser menor que 30 min';
+	elsif  (now() + _duracaoConsultaTime)::time < 
+	(select inicio from agendamento where inicio::date >= now()::date order by inicio limit 1)::time then
+		
+		if now()::time < '08:00:00'::time then 
+			if (EXTRACT(ISODOW FROM now())) = 6 then
+				return ('08:00:00'::time + (now()::Date) + '2 day');
+			elsif (EXTRACT(ISODOW FROM now())) = 7 then
+				return ('08:00:00'::time + (now()::Date) + '1 day');
+			else 
+				return ('08:00:00'::time + now()::Date);
+			end if;
+		end if;
+			
+		return now();
+	end if;
+	
+	for _interator in select * from agendamento where inicio::date >= now()::date order by inicio loop	
+		if  (_horaFinal + _duracaoConsultaTime)::time <= _interator.inicio::time then
+			raise notice 'Próximo horario: % ', (_horaFinal);
+			return _horaFinal;
+		end if;
+		_horaFinal := _interator.termino;
+	end loop;
+	
+	return (select termino from agendamento where inicio >= now() order by termino desc limit 1);
+end;
+$$
+language plpgsql;

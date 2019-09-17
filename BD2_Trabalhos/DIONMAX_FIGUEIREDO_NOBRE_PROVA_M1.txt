@@ -1,0 +1,98 @@
+-- Questão 1
+create or replace function calcularBTU(_tamanhoAmbiente int, _pessoas int, _eletronicos int, _exposicaoSol boolean)
+returns int as $$
+declare
+	_btus int := 0;
+begin
+	if _tamanhoAmbiente < 0 or _pessoas < 0 or _eletronicos < 0 then
+		raise exception 'Proibidos valores menor que zero 0';
+	end if;
+
+	if _exposicaoSol = true then
+		_btus := _tamanhoAmbiente * 800;
+	else
+		_btus := _tamanhoAmbiente * 600;
+	end if;
+	
+	if _pessoas > 1 then
+		_btus := _btus + (_pessoas * 600);
+	end if;
+	
+	if _eletronicos > 0 then
+		_btus := _btus + (_eletronicos * 600);
+	end if;
+	
+	return _btus;
+end;
+$$ language plpgsql;
+
+-- Questão 2
+create or replace function calculaConsumoEquipamento(_ligado timestamp, _desligado timestamp, _potencia int) returns float as $$
+declare
+	_horasTotal interval := (_desligado - _ligado);
+	_tempo numeric := (SELECT EXTRACT(EPOCH FROM _horasTotal)/ 60 / 60 / 24::numeric);
+begin
+	if (_desligado < _ligado) then
+		raise exception 'Tempo de desligamento menor que de ligamento';
+	end if;
+	
+	return (round(_tempo, 5) * _potencia) / 1000;
+end;
+$$ language plpgsql;
+
+-- Questão 3
+create or replace function ImpedirTarefaConcluida() returns trigger as $$
+begin
+	if new.concluida = true then
+		raise exception 'RN_NAO_E_PERMITIDO_CADASTRAR_TAREFAS_COM_SITUACAO_CONCLUIDA';
+	end if;
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create trigger ImpedirTarefaConcluida before insert on tarefa 
+for each row execute procedure ImpedirTarefaConcluida();
+
+-- Questão 4
+create or replace function AumentarReputacaoColaborador() returns trigger as $$
+begin
+	if old.concluida = false and new.concluida = true then
+		update colaborador set _reputacao = _reputacao + 1 where colaborador.id = new.colaborador_id;
+	end if;
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create trigger AumentarReputacaoColaborador before update on tarefa 
+for each row execute procedure AumentarReputacaoColaborador();
+
+-- Questão 5
+create or replace function SubtrairReputacaoColaborador() returns trigger as $$
+begin
+	if old.concluida = true and new.concluida = false then
+		update colaborador set _reputacao = _reputacao -3  where colaborador.id = new.colaborador_id;
+	end if;
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create trigger SubtrairReputacaoColaborador before update on tarefa 
+for each row execute procedure SubtrairReputacaoColaborador();
+
+-- Questão 6
+create or replace function CalcularCustoTarefa() returns trigger as $$
+begin
+	new._custo = (
+		select salario_por_hora from cargo where id = 
+			(select cargo_id from colaborador where id = new.colaborador_id)
+	) / 60 * new.duracao_em_minutos;
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create trigger CalcularCustoTarefa before insert or update on tarefa 
+for each row execute procedure CalcularCustoTarefa();

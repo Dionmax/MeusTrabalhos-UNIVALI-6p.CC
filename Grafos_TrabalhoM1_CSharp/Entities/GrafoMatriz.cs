@@ -5,17 +5,17 @@ using Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage;
 
 namespace Grafos_TrabalhoM1_CSharp.Entities
 {
-    class GrafoMatriz : Grafo
+    class GrafoMatriz
     {
-        public GrafoMatriz(bool direcionado, bool ponderado)
-           : base(direcionado, ponderado)
-        {
+        //public GrafoMatriz(bool direcionado, bool ponderado)
+        //   : base(direcionado, ponderado)
+        //{
 
-        }
+        //}
 
-        public override bool InserirVertice()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool InserirVertice()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

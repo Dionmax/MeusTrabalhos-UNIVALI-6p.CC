@@ -1,0 +1,75 @@
+	create table cliente
+(
+	id serial primary key not null,
+	nome varchar(255) not null,
+	_pontos int not null
+);
+
+create table produto
+(
+	id serial primary key not null,
+	nome varchar(255) not null,
+	qtd_estoque int
+);
+
+create table venda
+(
+	id serial primary key not null,
+	data date not null,
+	_valor_total float,
+	cliente_id int
+);
+
+alter table venda add foreign key (cliente_id) references cliente(id);
+
+create table venda_produto
+(
+	quantidade int not null,
+	valor_unitario float not null,
+	_valor_total float not null,
+	produto_id int,
+	venda_id int
+);
+
+alter table venda_produto add foreign key (produto_id) references produto(id);
+alter table venda_produto add foreign key (venda_id) references venda(id);
+
+-- Criando function trigger 4
+create or replace function ControlarPontosCliente() returns trigger as $$
+begin
+
+	if tg_op != 'DELETE' then
+		update cliente set _pontos = _pontos + 1 where cliente.id = new.cliente_id;
+	else
+		update cliente set _pontos = _pontos - 1 where cliente.id = old.cliente_id;
+		return old;
+	end if;
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create trigger ControlarPontosCliente before insert or update or delete on venda 
+for each row execute procedure ControlarPontosCliente();
+
+
+-- Criando function trigger 4.1
+create or replace function GarantiaValorRedundanteVendaProduto() returns trigger as $$
+begin
+	if new.quantidade < 0 or new.valor_unitario < 0 then
+		raise exception 'Perimito somente valores positivos';
+	end if;
+	
+	new._valor_total := new.quantidade * new.valor_unitario;
+	
+	if (select qtd_estoque from produto where produto.id = new.produto_id) - new.quantidade < 0 then
+		raise exception 'Quantidade em estoque menor que quantidade de vendas.';
+	end if;
+	
+	update produto set qtd_estoque = qtd_estoque - new.quantidade where id = new.produto_id;
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create trigger GarantiaValorRedundanteVendaProduto before insert or update on venda_produto for each row execute procedure GarantiaValorRedundanteVendaProduto();
