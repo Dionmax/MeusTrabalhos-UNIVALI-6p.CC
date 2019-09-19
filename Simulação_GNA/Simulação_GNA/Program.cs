@@ -47,19 +47,19 @@ namespace Simulação_GNA
                     case 2:
                         Console.WriteLine("Distribuição Triangular.");
 
-                        Console.Write("Limite Superior: ");
-                        v1 = int.Parse(Console.ReadLine());
+                        Console.Write("Limite A: ");
+                        var A = float.Parse(Console.ReadLine());
 
-                        Console.Write("Limite inferior: ");
-                        v2 = int.Parse(Console.ReadLine());
+                        Console.Write("Limite B: ");
+                        var B = float.Parse(Console.ReadLine());
 
                         Console.Write("Moda: ");
-                        var v3 = int.Parse(Console.ReadLine());
+                        var C = float.Parse(Console.ReadLine());
 
                         Console.Write("Repetições: ");
                         repeticoes = int.Parse(Console.ReadLine());
 
-                        distribuicao = new DistribuicaoTriangular(v1, v2, v3, repeticoes);
+                        distribuicao = new DistribuicaoTriangular(A, B, C, repeticoes);
                         Algo = distribuicao.GerarNumeros();
                         break;
 
@@ -107,7 +107,7 @@ namespace Simulação_GNA
 
             try
             {
-                string path = "C:\\Saida.txt";
+                string path = "C:\\Temp\\Saida.txt";
 
                 using (StreamWriter sw = File.AppendText(path))
                 {

@@ -7,6 +7,8 @@ namespace Grafos_TrabalhoM1_CSharp.Entities
 {
     class GrafoMatriz
     {
+        // Não será tão usado durante as aulas
+
         //public GrafoMatriz(bool direcionado, bool ponderado)
         //   : base(direcionado, ponderado)
         //{

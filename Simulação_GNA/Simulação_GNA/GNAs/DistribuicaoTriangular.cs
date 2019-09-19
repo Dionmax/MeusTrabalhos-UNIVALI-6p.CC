@@ -5,11 +5,11 @@ namespace Simulação_GNA.GNAs
 {
     class DistribuicaoTriangular : IDistribuicao
     {
-        public int LimiteSuperior { get; set; }
+        public float LimiteA { get; set; }
 
-        public int LimiteInferior { get; set; }
+        public float LimiteB { get; set; }
 
-        public int Moda { get; set; }
+        public float Moda { get; set; }
 
         public int Repeticoes { get; set; }
 
@@ -17,17 +17,17 @@ namespace Simulação_GNA.GNAs
 
         public DistribuicaoTriangular()
         {
-            LimiteSuperior = 6;
-            LimiteInferior = 0;
+            LimiteA = 6;
+            LimiteB = 0;
             Moda = 3;
             Repeticoes = 2000;
             _numeroRandom = new Random();
         }
 
-        public DistribuicaoTriangular(int limiteSuperior, int limiteInferior, int moda, int repeticoes)
+        public DistribuicaoTriangular(float limiteSuperior, float limiteInferior, float moda, int repeticoes)
         {
-            LimiteSuperior = limiteSuperior;
-            LimiteInferior = limiteInferior;
+            LimiteA = limiteSuperior;
+            LimiteB = limiteInferior;
             Moda = moda;
             Repeticoes = repeticoes;
 
@@ -42,12 +42,15 @@ namespace Simulação_GNA.GNAs
 
             for (int i = 0; i < Repeticoes; i++)
             {
+                n = 0.0;
+
                 double nR = _numeroRandom.NextDouble();
 
-                if (nR < ((Moda - LimiteSuperior) / (LimiteInferior - LimiteSuperior)))
-                    n = Math.Abs(LimiteSuperior + (Math.Sqrt(nR * (Moda - LimiteSuperior) * (LimiteInferior - LimiteSuperior))));
+
+                if (nR < ((Moda - LimiteA) / (LimiteB - LimiteA)))
+                    n = (LimiteA) + (Math.Sqrt(nR * (Moda - LimiteA) * (LimiteB - LimiteA)));
                 else
-                    n = Math.Abs(LimiteInferior - (Math.Sqrt((1 - nR) * (LimiteInferior - Moda) * (LimiteInferior - LimiteSuperior))));
+                    n = (LimiteB) - (Math.Sqrt((1 - nR) * (LimiteB - Moda) * (LimiteB - LimiteA)));
 
                 listGerada.Add(n);
             }
