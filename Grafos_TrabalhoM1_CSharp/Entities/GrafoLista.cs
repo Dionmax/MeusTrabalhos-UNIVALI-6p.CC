@@ -52,32 +52,45 @@ namespace Grafos_TrabalhoM1_CSharp.Entities
             var v1 = _listaVertices.Where(x => x.Indice == vertice1).FirstOrDefault();
             var v2 = _listaVertices.Where(x => x.Indice == vertice2).FirstOrDefault();
 
+            int pesoAux = (Ponderado == true) ? peso : 0;
+
             if (v1 == null || v2 == null)
                 throw new Exception("Vertice não encontrada");
 
-            v1.VerticesVizinhas.Add(new Aresta(v2, peso));
+            v1.VerticesVizinhas.Add(new Aresta(v2, pesoAux));
 
             if (!Direcionado)
-                v2.VerticesVizinhas.Add(new Aresta(v1, peso));
+                v2.VerticesVizinhas.Add(new Aresta(v1, pesoAux));
         }
 
         public override void MostrarVizinhos(int V)
         {
             var vertice = _listaVertices.Where(x => x.Indice == V).FirstOrDefault();
 
-            Console.WriteLine($"\nVizinhos do vertice {V}: ");
-
-            foreach (var item in vertice.VerticesVizinhas)
+            try
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"\nVizinhos do vertice {V}: ");
+
+                foreach (var item in vertice.VerticesVizinhas)
+                {
+                    Console.WriteLine(item.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Vertice não encontrado. \n{e.Message}");
             }
 
             Console.WriteLine();
         }
 
-        public override void BuscaLargura()
+        public override void BuscaLargura(int V)
         {
-            throw new NotImplementedException();
+            Stack<Vertice> vizitados = new Stack<Vertice>();
+            var vertice = _listaVertices.Where(x => x.Indice == V).FirstOrDefault();
+
+            vizitados.Push(vertice);
+
         }
 
         public override void BuscaProfundidade()
@@ -95,6 +108,7 @@ namespace Grafos_TrabalhoM1_CSharp.Entities
             throw new NotImplementedException();
         }
 
-        public override List<Vertice> ListaVertices() => _listaVertices;
+        public override List<Vertice> ListaVertices()
+            => _listaVertices;
     }
 }

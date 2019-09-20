@@ -28,7 +28,7 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 
         abstract public void MostrarVizinhos(int vertice);
 
-        abstract public void BuscaLargura();
+        abstract public void BuscaLargura(int V);
 
         abstract public void BuscaProfundidade();
 

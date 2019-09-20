@@ -17,13 +17,15 @@ namespace Grafos_TrabalhoM1_CSharp
             grafoLista.InserirVertice(4);
             grafoLista.InserirVertice(5);
 
-            grafoLista.InserirAresta(2, 3);
-            grafoLista.InserirAresta(2, 4);
-            grafoLista.InserirAresta(2, 5);
+            grafoLista.InserirAresta(2, 3, 1);
+            grafoLista.InserirAresta(2, 4, 2);
+            grafoLista.InserirAresta(2, 5, 3);
 
-            grafoLista.MostrarVizinhos(2);
-            grafoLista.MostrarVizinhos(3);
+            //grafoLista.MostrarVizinhos(2);
+            //grafoLista.MostrarVizinhos(26);
+            //grafoLista.MostrarVizinhos(3);
 
+            grafoLista.BuscaLargura(2);
         }
     }
 }
