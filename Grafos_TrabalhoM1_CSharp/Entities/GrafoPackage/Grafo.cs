@@ -30,7 +30,7 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 
         abstract public void BuscaLargura(int V);
 
-        abstract public void BuscaProfundidade();
+        abstract public void BuscaProfundidade(int V);
 
         abstract public void Djsktra();
 

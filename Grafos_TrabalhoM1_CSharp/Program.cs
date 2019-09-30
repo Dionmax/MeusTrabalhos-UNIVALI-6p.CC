@@ -12,14 +12,18 @@ namespace Grafos_TrabalhoM1_CSharp
         {
             Grafo grafoLista = new GrafoLista();
 
+
+            
             grafoLista.InserirVertice(2);
             grafoLista.InserirVertice(3);
             grafoLista.InserirVertice(4);
             grafoLista.InserirVertice(5);
+            grafoLista.InserirVertice(1);
 
-            grafoLista.InserirAresta(2, 3, 1);
-            grafoLista.InserirAresta(2, 4, 2);
-            grafoLista.InserirAresta(2, 5, 3);
+
+            grafoLista.InserirAresta(2, 3);
+            grafoLista.InserirAresta(2, 4);
+            grafoLista.InserirAresta(2, 5);
 
             //grafoLista.MostrarVizinhos(2);
             //grafoLista.MostrarVizinhos(26);

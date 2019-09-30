@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage;
+using Grafos_TrabalhoM1_CSharp.ClassLegacy;
 
 namespace Grafos_TrabalhoM1_CSharp.Entities
 {
@@ -86,16 +87,59 @@ namespace Grafos_TrabalhoM1_CSharp.Entities
 
         public override void BuscaLargura(int V)
         {
+            //  try
+            {
+                var vertice = _listaVertices.Where(x => x.Indice == V).FirstOrDefault();
+                Queue<Vertice> verticesEncontradas = new Queue<Vertice>();
+                List<Pair<int, bool>> vizitados = new List<Pair<int, bool>>();
+
+                vizitados.Add(new Pair<int, bool>(V, true));
+
+                foreach (var item in vertice.VerticesVizinhas)
+                {
+                    vizitados.Add(new Pair<int, bool>(item.Nodo.Indice, false));
+                }
+
+                var verticeVizitado = vizitados.Where(x => x.First == V).FirstOrDefault();
+
+                verticeVizitado.Second = true;
+
+                do
+                {
+                    Console.WriteLine($"Verificando o vertice {vertice}.");
+
+                    foreach (var item in _listaVertices)
+                    {
+                        var verticeAux = vizitados.Where(x => x.First == item.Indice).FirstOrDefault();
+
+                        if (verticeAux != null && verticeAux.First == item.Indice && !verticeAux.Second)
+                        {
+                            Console.WriteLine($"Vizitando vertice {verticeAux.First}");
+                            verticeAux.Second = true;
+                            verticesEncontradas.Enqueue(item);
+                        }
+                    }
+
+                    Console.WriteLine();
+
+                    vertice = verticesEncontradas.First();
+
+                    verticesEncontradas.Dequeue();
+
+                } while (verticesEncontradas.Count != 0);
+            }
+            //  catch (Exception e)
+            {
+
+                //   Console.WriteLine("Vertice não encontrado.\n" + e.Message);
+            }
+        }
+
+        public override void BuscaProfundidade(int V)
+        {
             Stack<Vertice> vizitados = new Stack<Vertice>();
             var vertice = _listaVertices.Where(x => x.Indice == V).FirstOrDefault();
 
-            vizitados.Push(vertice);
-
-        }
-
-        public override void BuscaProfundidade()
-        {
-            throw new NotImplementedException();
         }
 
         public override void Djsktra()
