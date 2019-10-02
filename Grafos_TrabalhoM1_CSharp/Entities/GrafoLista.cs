@@ -87,7 +87,7 @@ namespace Grafos_TrabalhoM1_CSharp.Entities
 
         public override void BuscaLargura(int V)
         {
-            //  try
+            try
             {
                 var vertice = _listaVertices.Where(x => x.Indice == V).FirstOrDefault();
                 Queue<Vertice> verticesEncontradas = new Queue<Vertice>();
@@ -100,9 +100,9 @@ namespace Grafos_TrabalhoM1_CSharp.Entities
                     vizitados.Add(new Pair<int, bool>(item.Nodo.Indice, false));
                 }
 
-                var verticeVizitado = vizitados.Where(x => x.First == V).FirstOrDefault();
+                //var verticeVizitado = vizitados.Where(x => x.First == V).FirstOrDefault();
 
-                verticeVizitado.Second = true;
+                //verticeVizitado.Second = true;
 
                 do
                 {
@@ -128,10 +128,9 @@ namespace Grafos_TrabalhoM1_CSharp.Entities
 
                 } while (verticesEncontradas.Count != 0);
             }
-            //  catch (Exception e)
+            catch (Exception e)
             {
-
-                //   Console.WriteLine("Vertice não encontrado.\n" + e.Message);
+                Console.WriteLine("Vertice não encontrado.\n" + e.Message);
             }
         }
 
