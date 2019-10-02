@@ -8,6 +8,7 @@ using namespace std;
 int main()
 {
 	GrafoMatriz grafo = GrafoMatriz(5, false, false);
+	//GrafoLista grafo = GrafoLista(5, false, false);
 
 
 	grafo.InserirAresta(0, 1, 3);
@@ -19,14 +20,11 @@ int main()
 	grafo.InserirAresta(2, 4, 2);
 	grafo.InserirAresta(3, 4, 1);
 
-	grafo.DesenharMatriz();
-
-	//cout << graforlista.ObterGrauDeSaida(0) << endl;
-	//cout << graforlista.ExisteVizinho(1, 3) << endl;
-	//cout << endl;
-	//graforlista.BuscaLargura(2);
-	//cout << endl;
-	//graforlista.BuscaProfundidade(0);
-	//cout << endl;
+	//cout << grafo.PesoAresta(0, 1);
+	//grafo.BuscaLargura(0);
+	//grafo.BuscaProfundidade(0);
+	//cout << grafo.ExisteVizinho(2, 0);
+	//cout << grafo.ObterGrauDeSaida(0);
 	//cout << grafo.Dijkstra(3, 0) << endl;
+	grafo.DesenharMatriz();
 }
