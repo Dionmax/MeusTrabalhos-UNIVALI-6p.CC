@@ -19,6 +19,8 @@ int main()
 	grafo.InserirAresta(2, 4, 2);
 	grafo.InserirAresta(3, 4, 1);
 
+	grafo.DesenharMatriz();
+
 	//cout << graforlista.ObterGrauDeSaida(0) << endl;
 	//cout << graforlista.ExisteVizinho(1, 3) << endl;
 	//cout << endl;

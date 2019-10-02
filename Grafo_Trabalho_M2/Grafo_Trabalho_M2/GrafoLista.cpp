@@ -42,7 +42,7 @@ public:
 		return ListaAdj[v].size();
 	}
 
-	bool ExisteVizinho(int v1, int v2) override
+	bool ExisteVizinho(int v1, int v2) 
 	{
 		list<pair<int, int> >::iterator it;
 
