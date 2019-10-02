@@ -175,11 +175,12 @@ public:
 			visitados[i] = false;
 
 		int min = -1;
+		int menorValor = 10000;
 
 		for (int i = 1; i < dest; i++)
 		{
 			min = -1;
-			int menorValor = 10000;
+			menorValor = 10000;
 
 			for (int j = 1; j < dest; j++)
 			{
@@ -201,7 +202,7 @@ public:
 			}
 		}
 
-		return min;
+		return menorValor;
 	}
 
 	int PesoAresta(int v1, int v2) {

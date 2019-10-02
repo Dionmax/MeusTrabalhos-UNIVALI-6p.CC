@@ -25,6 +25,6 @@ int main()
 	//grafo.BuscaProfundidade(0);
 	//cout << grafo.ExisteVizinho(2, 0);
 	//cout << grafo.ObterGrauDeSaida(0);
-	cout << grafo.Dijkstra(0, 3) << endl;
+	cout << grafo.Dijkstra(2, 4) << endl;
 	grafo.DesenharMatriz();
 }
