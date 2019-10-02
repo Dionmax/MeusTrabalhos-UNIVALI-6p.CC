@@ -25,7 +25,7 @@ public:
 	virtual bool ExisteVizinho(int v1, int v2) = 0;
 	virtual void BuscaProfundidade(int v) = 0;
 	virtual void BuscaLargura(int v) = 0;
-	//virtual int Dijkstra(int orig, int dest) = 0;
+	virtual int Dijkstra(int orig, int dest) = 0;
 	//virtual int VerificarPlanaridade() = 0;
 	//virtual int Welsh() = 0;
 	//virtual int Powell() = 0;

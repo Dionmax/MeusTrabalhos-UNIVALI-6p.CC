@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	GrafoMatriz grafo = GrafoMatriz(5, false, false);
+	GrafoMatriz grafo = GrafoMatriz(5, false, true);
 	//GrafoLista grafo = GrafoLista(5, false, false);
 
 
@@ -25,6 +25,6 @@ int main()
 	//grafo.BuscaProfundidade(0);
 	//cout << grafo.ExisteVizinho(2, 0);
 	//cout << grafo.ObterGrauDeSaida(0);
-	//cout << grafo.Dijkstra(3, 0) << endl;
+	cout << grafo.Dijkstra(0, 3) << endl;
 	grafo.DesenharMatriz();
 }

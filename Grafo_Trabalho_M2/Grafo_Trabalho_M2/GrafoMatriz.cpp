@@ -8,7 +8,7 @@
 #include <queue> 
 #include <functional>
 
-#define INFINITO 10000000
+#define INFINITO = 1000;
 
 using namespace std;
 
@@ -135,9 +135,6 @@ public:
 		for (int i = 0; i < vertices; i++)
 			visitados[i] = false;
 
-		//cout << "Visitando vertice " << v << " ...\n";
-		//visitados[v] = true; // marca como visitado
-
 		while (true)
 		{
 			if (!visitados[v])
@@ -167,6 +164,44 @@ public:
 			else
 				break;
 		}
+	}
+
+	int Dijkstra(int orig, int dest)
+	{
+		bool* visitados;
+		visitados = new bool[vertices];
+
+		for (int i = 0; i < vertices; i++)
+			visitados[i] = false;
+
+		int min = -1;
+
+		for (int i = 1; i < dest; i++)
+		{
+			min = -1;
+			int menorValor = 10000;
+
+			for (int j = 1; j < dest; j++)
+			{
+				if (!visitados[j] && grafoMatriz[j][orig] < menorValor)
+				{
+					min = j;
+					menorValor = grafoMatriz[j][orig];
+				}
+			}
+
+			visitados[min] = true;
+
+			for (int j = 1; j < dest; j++)
+			{
+				if (grafoMatriz[min][orig] + grafoMatriz[min][j] < grafoMatriz[j][orig])
+				{
+					grafoMatriz[j][orig] = grafoMatriz[min][orig] + grafoMatriz[min][j];
+				}
+			}
+		}
+
+		return min;
 	}
 
 	int PesoAresta(int v1, int v2) {
