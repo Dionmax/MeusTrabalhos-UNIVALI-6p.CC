@@ -8,8 +8,6 @@
 #include <queue> 
 #include <functional>
 
-#define INFINITO = 1000;
-
 using namespace std;
 
 class GrafoMatriz : public Grafo
@@ -26,7 +24,7 @@ public:
 
 		for (int i = 0; i < vertices; i++)
 			for (int j = 0; j < vertices; j++)
-				grafoMatriz[i][j] = 0;
+				grafoMatriz[i][j] = INFINITY;
 	}
 
 	GrafoMatriz(int vertices, bool direcionado, bool ponderado)
@@ -39,7 +37,7 @@ public:
 
 		for (int i = 0; i < vertices; i++)
 			for (int j = 0; j < vertices; j++)
-				grafoMatriz[i][j] = 0;
+				grafoMatriz[i][j] = INFINITY;
 	}
 
 	void InserirAresta(int v1, int v2, int peso)
@@ -182,7 +180,7 @@ public:
 			min = -1;
 			menorValor = 10000;
 
-			for (int j = 1; j < dest; j++)
+			for (int j = orig + 1; j < dest; j++)
 			{
 				if (!visitados[j] && grafoMatriz[j][orig] < menorValor)
 				{
@@ -193,16 +191,21 @@ public:
 
 			visitados[min] = true;
 
-			for (int j = 1; j < dest; j++)
+			/*for (int j = orig + 1; j < dest; j++)
 			{
 				if (grafoMatriz[min][orig] + grafoMatriz[min][j] < grafoMatriz[j][orig])
 				{
 					grafoMatriz[j][orig] = grafoMatriz[min][orig] + grafoMatriz[min][j];
 				}
-			}
+			}*/
 		}
 
 		return menorValor;
+	}
+
+	void WelshPowell(int V)
+	{
+		cout << "Not implement" << endl;
 	}
 
 	int PesoAresta(int v1, int v2) {
