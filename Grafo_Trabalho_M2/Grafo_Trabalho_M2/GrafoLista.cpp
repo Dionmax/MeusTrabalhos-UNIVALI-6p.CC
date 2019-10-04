@@ -272,4 +272,9 @@ public:
 			cout << "Vertex " << u << " --->  Color "
 			<< result[u] << endl;
 	}
+
+	int DSATUR()
+	{
+		return 0;
+	}
 };

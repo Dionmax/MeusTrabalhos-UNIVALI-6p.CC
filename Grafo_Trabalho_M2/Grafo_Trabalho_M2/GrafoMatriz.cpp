@@ -208,6 +208,11 @@ public:
 		cout << "Not implement" << endl;
 	}
 
+	int DSATUR()
+	{
+		return 0;
+	}
+
 	int PesoAresta(int v1, int v2) {
 		return grafoMatriz[v1][v2];
 	}
