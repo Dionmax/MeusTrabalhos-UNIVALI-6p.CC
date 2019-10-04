@@ -27,6 +27,6 @@ public:
 	virtual void BuscaLargura(int v) = 0;
 	virtual int Dijkstra(int orig, int dest) = 0;
 	//virtual int VerificarPlanaridade() = 0;
-	virtual void WelshPowell(int V) = 0;
+	virtual void WelshPowell() = 0;
 	//virtual int DSATUR() = 0;
 };

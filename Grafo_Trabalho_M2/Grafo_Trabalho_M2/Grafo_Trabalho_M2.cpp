@@ -7,8 +7,8 @@ using namespace std;
 
 int main()
 {
-	GrafoMatriz grafo = GrafoMatriz(5, false, true);
-	//GrafoLista grafo = GrafoLista(5, false, true);
+	//GrafoMatriz grafo = GrafoMatriz(5, false, true);
+	GrafoLista grafo = GrafoLista(5, false, true);
 
 
 	grafo.InserirAresta(0, 1, 3);
@@ -20,11 +20,13 @@ int main()
 	grafo.InserirAresta(2, 4, 2);
 	grafo.InserirAresta(3, 4, 1);
 
+	grafo.WelshPowell();
+
 	//cout << grafo.PesoAresta(0, 1);
 	//grafo.BuscaLargura(0);
 	//grafo.BuscaProfundidade(0);
 	//cout << grafo.ExisteVizinho(2, 0);
 	//cout << grafo.ObterGrauDeSaida(0);
-	cout << grafo.Dijkstra(0, 2) << endl;
+	//cout << grafo.Dijkstra(0, 2) << endl;
 	//grafo.DesenharMatriz();
 }

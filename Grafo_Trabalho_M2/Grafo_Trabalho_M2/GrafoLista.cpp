@@ -42,6 +42,19 @@ public:
 		return ListaAdj[v].size();
 	}
 
+	void OrdenarGrauSaida()
+	{
+		for (int i = 0; i < ListaAdj->size() - 1; i++)
+		{
+			if (ObterGrauDeSaida(i) < ObterGrauDeSaida(i + 1))
+			{
+				list<pair<int, int>> aux = ListaAdj[i];
+				ListaAdj[i] = ListaAdj[i + 1];
+				ListaAdj[i + 1] = aux;
+			}
+		}
+	}
+
 	bool ExisteVizinho(int v1, int v2)
 	{
 		list<pair<int, int> >::iterator it;
@@ -88,7 +101,7 @@ public:
 
 			if (achou)
 				v = it->first; // atualiza o "v"
-			else
+		//	else
 			{
 				// se todos os vizinhos estão visitados ou não existem vizinhos
 				// remove da pilha
@@ -209,28 +222,30 @@ public:
 		return dist[dest];
 	}
 
-	void WelshPowell(int V)
+	void WelshPowell()
 	{
 		int* result;
-		result = new int[V];
+		result = new int[vertices];
+
+		OrdenarGrauSaida();
 
 		// Atribui a primeira cor ao primeiro vértice
 		result[0] = 0;
 
 		// Inicializa os vértices V-1 restantes como não atribuídos
-		for (int u = 1; u < V; u++)
+		for (int u = 1; u < vertices; u++)
 			result[u] = -1;  // no color is assigned to u 
 
 		// Uma array temporária para armazenar as cores disponíveis. Verdadeiro
 		// valor de [cr] disponível significaria que a cor cr é
 		// atribuído a um de seus vértices adjacentes
 		bool* available;
-		available = new bool[V];
-		for (int cr = 0; cr < V; cr++)
+		available = new bool[vertices];
+		for (int cr = 0; cr < vertices; cr++)
 			available[cr] = false;
 
 		// Atribuir cores aos restantes vértices V-1
-		for (int u = 1; u < V; u++)
+		for (int u = 1; u < vertices; u++)
 		{
 			// Processa todos os vértices adjacentes e sinaliza suas cores
 			// como indisponível 
@@ -240,7 +255,7 @@ public:
 					available[result[it->first]] = true;
 
 			// Encontre a primeira cor disponível
-			for (int cr = 0; cr < V; cr++)
+			for (int cr = 0; cr < vertices; cr++)
 				if (available[cr] == false) {
 					result[u] = cr;// Atribua a cor encontrada
 					break;
@@ -253,7 +268,7 @@ public:
 		}
 
 		// Mostra o resultado
-		for (int u = 0; u < V; u++)
+		for (int u = 0; u < vertices; u++)
 			cout << "Vertex " << u << " --->  Color "
 			<< result[u] << endl;
 	}
