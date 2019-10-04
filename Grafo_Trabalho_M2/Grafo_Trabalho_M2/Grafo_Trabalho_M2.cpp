@@ -79,7 +79,8 @@ int main()
 
 	//cout << grafo.getNumeroVertices();
 	//grafo.InserirAresta(0, 1, 3);
-	grafo.WelshPowell();
+	//grafo.WelshPowell();
+	grafo.DSATUR();
 	//cout << grafo.PesoAresta(0, 1);
 	//grafo.BuscaLargura(2);
 	//grafo.BuscaProfundidade(0);

@@ -224,17 +224,15 @@ public:
 
 	void WelshPowell()
 	{
-		int* result;
-		result = new int[vertices];
+		int* resultado;
+		resultado = new int[vertices];
+		int maiorCor = 0;
 
-		OrdenarGrauSaida();
-
-		// Atribui a primeira cor ao primeiro vértice
-		result[0] = 0;
+		queue<int> proximo;
 
 		// Inicializa os vértices V-1 restantes como não atribuídos
-		for (int u = 1; u < vertices; u++)
-			result[u] = -1;  // no color is assigned to u 
+		for (int u = 0; u < vertices; u++)
+			resultado[u] = -1;  // no color is assigned to u 
 
 		// Uma array temporária para armazenar as cores disponíveis. Verdadeiro
 		// valor de [cr] disponível significaria que a cor cr é
@@ -244,37 +242,193 @@ public:
 		for (int cr = 0; cr < vertices; cr++)
 			available[cr] = false;
 
-		// Atribuir cores aos restantes vértices V-1
-		for (int u = 1; u < vertices; u++)
+		//achar o maior grau e botar na fila pra verificacao
+		int grauVertice = ObterGrauDeSaida(0);
+		int primeiro = 0;
+		for (int i = 0; i < vertices; i++)
 		{
+			if (grauVertice < ObterGrauDeSaida(i)) {
+				grauVertice = ObterGrauDeSaida(i);
+				proximo.push(i);
+			}
+		}
+		grauVertice--;
+
+		for (int j = 0; j < vertices; j++)
+		{
+			for (int i = 0; i < vertices; i++)
+			{
+
+				if (grauVertice == ObterGrauDeSaida(i)) {
+
+					//maiorGrau = ObterGrauDeSaida(i);
+					proximo.push(i);
+				}
+
+			}
+			if (proximo.size() == vertices)
+				break;
+			grauVertice--;
+		}
+
+		// Atribui a primeira cor ao de maior grau
+		resultado[proximo.front()] = 0;
+		proximo.pop();
+
+		// Atribuir cores aos restantes vértices 
+		for (int u = 0; u < vertices; u++)
+		{
+			if (proximo.empty())
+				break;
+
+			int atual = proximo.front();
+			proximo.pop();
 			// Processa todos os vértices adjacentes e sinaliza suas cores
 			// como indisponível 
 			list<pair<int, int> >::iterator it;
-			for (it = ListaAdj[u].begin(); it != ListaAdj[u].end(); ++it)
-				if (result[it->first] != -1)
-					available[result[it->first]] = true;
+			for (it = ListaAdj[atual].begin(); it != ListaAdj[atual].end(); ++it) {
+				if (resultado[it->first] != -1) {
+					available[resultado[it->first]] = true;
+				}
+			}
 
 			// Encontre a primeira cor disponível
 			for (int cr = 0; cr < vertices; cr++)
 				if (available[cr] == false) {
-					result[u] = cr;// Atribua a cor encontrada
+					resultado[atual] = cr;// Atribua a cor encontrada
 					break;
 				}
 
 			// Redefina os valores novamente para false para a próxima iteração
-			for (it = ListaAdj[u].begin(); it != ListaAdj[u].end(); ++it)
-				if (result[it->first] != -1)
-					available[result[it->first]] = false;
+			for (it = ListaAdj[atual].begin(); it != ListaAdj[atual].end(); ++it)
+				if (resultado[it->first] != -1)
+					available[resultado[it->first]] = false;
 		}
 
 		// Mostra o resultado
 		for (int u = 0; u < vertices; u++)
-			cout << "Vertex " << u << " --->  Color "
-			<< result[u] << endl;
+			cout << "Vertice " << u << " --->  Cor "
+			<< resultado[u] << endl;
+
+		cout << endl;
+
+		for (int i = 0; i < vertices; i++)
+		{
+			if (resultado[i] > maiorCor)
+			{
+				maiorCor = resultado[i];
+			}
+		}
+
+		cout << endl << "Maior cor usada: " << maiorCor << endl;
+	}
+
+	int GrauSaturacao(int saturacao[]) {
+		int daVez = 0;
+		//eu nem o que isso faz, mas...
+		for (int j = 0; j < vertices; j++)
+		{
+			for (int i = 0; i < vertices; i++)
+			{
+
+				if (saturacao[i] > daVez) {
+
+					daVez = saturacao[i];
+					//maiorGrau = ObterGrauDeSaida(i);
+
+				}
+
+			}
+		}
+		return daVez;
 	}
 
 	int DSATUR()
 	{
+		int* resultado;
+		resultado = new int[vertices];
+		int* saturacao;
+		saturacao = new int[vertices];
+		int maiorCor = 0;
+		int daVez = 0;
+
+		// Inicializa os vértices V-1 restantes como não atribuídos
+		for (int u = 0; u < vertices; u++)
+			resultado[u] = -1;
+
+		bool* available;
+		available = new bool[vertices];
+		for (int cr = 0; cr < vertices; cr++)
+			available[cr] = false;	
+
+		// Atribuir cores aos restantes vértices 
+		//list<pair<int, int> >::iterator it;
+		for (int u = 0; u < vertices; u++)
+		{
+			// Processa todos os vértices adjacentes e sinaliza suas cores
+			// como indisponível 
+			list<pair<int, int> >::iterator it;
+			//for (it = ListaAdj[daVez].begin(); it != ListaAdj[daVez].end(); ++it) {
+
+			for(auto its : ListaAdj[daVez]){
+
+				cout << "dsaudhsaudhua";
+
+				if (resultado[its.first] != -1) {
+					available[resultado[its.first]] = true;
+
+				}
+			}
+
+			/*for (it = ListaAdj[daVez])
+			{
+
+			}*/
+
+			// Encontre a primeira cor disponível
+			for (int cr = 0; cr < vertices; cr++) {
+				if (available[cr] == false) {
+					resultado[daVez] = cr;// Atribua a cor encontrada
+					break;
+				}
+			}
+
+			//aumentando a saturacao
+			//list<pair<int, int>>::iterator it;
+			for (it = ListaAdj[daVez].begin(); it != ListaAdj[daVez].end(); ++it) {
+				if (resultado[it->first] != resultado[daVez]) {
+					saturacao[it->first]++;
+				}
+			}
+
+			// Redefina os valores novamente para false para a próxima iteração
+			for (it = ListaAdj[daVez].begin(); it != ListaAdj[daVez].end(); ++it) {
+
+				if (resultado[it->first] != -1) {
+					available[resultado[it->first]] = false;
+				}
+			}
+			daVez = GrauSaturacao(resultado);
+
+		}
+
+		// Mostra o resultado
+		for (int u = 0; u < vertices; u++)
+			cout << "Vertice " << u << " --->  Cor "
+			<< resultado[u] << endl;
+
+		cout << endl;
+		//mostrar a maior cor
+		for (int i = 0; i < vertices; i++)
+		{
+			if (resultado[i] > maiorCor)
+			{
+				maiorCor = resultado[i];
+			}
+		}
+
+		cout << endl << "Maior cor usada: " << maiorCor << endl;
+
 		return 0;
 	}
 };
