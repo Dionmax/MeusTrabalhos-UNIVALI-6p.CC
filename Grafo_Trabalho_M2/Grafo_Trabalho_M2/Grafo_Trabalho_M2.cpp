@@ -7,6 +7,7 @@
 #include "Grafo.cpp"
 #include "GrafoLista.cpp"
 #include "GrafoMatriz.cpp"
+#include "Dsatur.h"
 
 using namespace std;
 
@@ -80,7 +81,8 @@ int main()
 	//cout << grafo.getNumeroVertices();
 	//grafo.InserirAresta(0, 1, 3);
 	//grafo.WelshPowell();
-	grafo.DSATUR();
+	//grafo.DSATUR();
+	DSATUR(grafo.vertices, grafo.ListaAdj); // Tentamos muito, mas não funcionou os FOR, o algoritimos ignoras eles :(
 	//cout << grafo.PesoAresta(0, 1);
 	//grafo.BuscaLargura(2);
 	//grafo.BuscaProfundidade(0);

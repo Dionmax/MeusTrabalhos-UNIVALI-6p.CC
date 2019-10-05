@@ -12,7 +12,7 @@ namespace Simulação_GNA
         {
             IDistribuicao distribuicao;
 
-            var Algo = new List<double>();
+            var ValoresSaida = new List<double>();
 
             Console.WriteLine("Escolha o tipo de distribuição que desejas: \n");
             Console.WriteLine(" 1 - Distribuição Uniforme.");
@@ -41,7 +41,7 @@ namespace Simulação_GNA
                         var repeticoes = int.Parse(Console.ReadLine());
 
                         distribuicao = new DistribuicaoUniforme(v1, v2, repeticoes);
-                        Algo = distribuicao.GerarNumeros();
+                        ValoresSaida = distribuicao.GerarNumeros();
                         break;
 
                     case 2:
@@ -60,7 +60,7 @@ namespace Simulação_GNA
                         repeticoes = int.Parse(Console.ReadLine());
 
                         distribuicao = new DistribuicaoTriangular(A, B, C, repeticoes);
-                        Algo = distribuicao.GerarNumeros();
+                        ValoresSaida = distribuicao.GerarNumeros();
                         break;
 
                     case 3:
@@ -76,7 +76,7 @@ namespace Simulação_GNA
                         repeticoes = int.Parse(Console.ReadLine());
 
                         distribuicao = new DistribuicaoExponencial(v5, v1, repeticoes);
-                        Algo = distribuicao.GerarNumeros();
+                        ValoresSaida = distribuicao.GerarNumeros();
                         break;
 
                     case 4:
@@ -92,7 +92,7 @@ namespace Simulação_GNA
                         repeticoes = int.Parse(Console.ReadLine());
 
                         distribuicao = new DistribuicaoNormal(v1, v2, repeticoes);
-                        Algo = distribuicao.GerarNumeros();
+                        ValoresSaida = distribuicao.GerarNumeros();
                         break;
 
                     default:
@@ -111,7 +111,7 @@ namespace Simulação_GNA
 
                 using (StreamWriter sw = File.AppendText(path))
                 {
-                    foreach (var line in Algo)
+                    foreach (var line in ValoresSaida)
                     {
                         sw.WriteLine(line.ToString(CultureInfo.InvariantCulture));
                     }

@@ -15,9 +15,10 @@ using namespace std;
 
 class GrafoLista : public Grafo
 {
+public:
+
 	list<pair<int, int>>* ListaAdj;
 
-public:
 	GrafoLista() : Grafo()
 	{
 		ListaAdj = new list<pair<int, int>>[0];
@@ -323,112 +324,8 @@ public:
 		cout << endl << "Maior cor usada: " << maiorCor << endl;
 	}
 
-	int GrauSaturacao(int saturacao[]) {
-		int daVez = 0;
-		//eu nem o que isso faz, mas...
-		for (int j = 0; j < vertices; j++)
-		{
-			for (int i = 0; i < vertices; i++)
-			{
-
-				if (saturacao[i] > daVez) {
-
-					daVez = saturacao[i];
-					//maiorGrau = ObterGrauDeSaida(i);
-
-				}
-
-			}
-		}
-		return daVez;
-	}
-
-	int DSATUR()
+	list<pair<int, int>> getLista()
 	{
-		int* resultado;
-		resultado = new int[vertices];
-		int* saturacao;
-		saturacao = new int[vertices];
-		int maiorCor = 0;
-		int daVez = 0;
-
-		// Inicializa os vértices V-1 restantes como não atribuídos
-		for (int u = 0; u < vertices; u++)
-			resultado[u] = -1;
-
-		bool* available;
-		available = new bool[vertices];
-		for (int cr = 0; cr < vertices; cr++)
-			available[cr] = false;	
-
-		// Atribuir cores aos restantes vértices 
-		//list<pair<int, int> >::iterator it;
-		for (int u = 0; u < vertices; u++)
-		{
-			// Processa todos os vértices adjacentes e sinaliza suas cores
-			// como indisponível 
-			list<pair<int, int> >::iterator it;
-			//for (it = ListaAdj[daVez].begin(); it != ListaAdj[daVez].end(); ++it) {
-
-			for(auto its : ListaAdj[daVez]){
-
-				cout << "dsaudhsaudhua";
-
-				if (resultado[its.first] != -1) {
-					available[resultado[its.first]] = true;
-
-				}
-			}
-
-			/*for (it = ListaAdj[daVez])
-			{
-
-			}*/
-
-			// Encontre a primeira cor disponível
-			for (int cr = 0; cr < vertices; cr++) {
-				if (available[cr] == false) {
-					resultado[daVez] = cr;// Atribua a cor encontrada
-					break;
-				}
-			}
-
-			//aumentando a saturacao
-			//list<pair<int, int>>::iterator it;
-			for (it = ListaAdj[daVez].begin(); it != ListaAdj[daVez].end(); ++it) {
-				if (resultado[it->first] != resultado[daVez]) {
-					saturacao[it->first]++;
-				}
-			}
-
-			// Redefina os valores novamente para false para a próxima iteração
-			for (it = ListaAdj[daVez].begin(); it != ListaAdj[daVez].end(); ++it) {
-
-				if (resultado[it->first] != -1) {
-					available[resultado[it->first]] = false;
-				}
-			}
-			daVez = GrauSaturacao(resultado);
-
-		}
-
-		// Mostra o resultado
-		for (int u = 0; u < vertices; u++)
-			cout << "Vertice " << u << " --->  Cor "
-			<< resultado[u] << endl;
-
-		cout << endl;
-		//mostrar a maior cor
-		for (int i = 0; i < vertices; i++)
-		{
-			if (resultado[i] > maiorCor)
-			{
-				maiorCor = resultado[i];
-			}
-		}
-
-		cout << endl << "Maior cor usada: " << maiorCor << endl;
-
-		return 0;
+		return *ListaAdj;
 	}
 };
