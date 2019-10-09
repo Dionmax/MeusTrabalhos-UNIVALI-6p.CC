@@ -22,17 +22,12 @@ import java.util.Stack;
  */
 public class AutomatosCompiladorGals {
 
-    
-    public static Stack<Integer> pilha = new Stack<>();
-    public static Map<String, Integer> vars = new HashMap<>();
-    public static String ultimaVariavel;
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
-            Lexico lex = new Lexico("A = 10; " + " B = 11; " + "B = 111 + A * B; " + " imprimir( B );");
+            Lexico lex = new Lexico("A = 1010; imprimir(A); B = A * 10; imprimir(B);");
 
             Sintatico sin = new Sintatico();
             Semantico sem = new Semantico();

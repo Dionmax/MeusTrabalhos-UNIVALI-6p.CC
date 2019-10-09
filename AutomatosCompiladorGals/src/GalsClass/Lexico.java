@@ -15,7 +15,7 @@ public class Lexico implements Constants
         setInput(input);
     }
 
-     public void setInput(String input)
+    public void setInput(String input)
     {
         this.input = input;
         setPosition(0);
