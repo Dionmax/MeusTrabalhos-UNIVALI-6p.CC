@@ -57,7 +57,7 @@ int DSATUR(int vertices, list<pair<int, int>> ListaAdj[])
 		// como indisponível 
 		//list<pair<int, int> >::iterator it;
 
-		/*for (auto it : ListaAdj[daVez])
+		for (auto it : ListaAdj[daVez])
 		{
 			if (resultado[it.first] != -1)
 			{
@@ -65,12 +65,12 @@ int DSATUR(int vertices, list<pair<int, int>> ListaAdj[])
 			}
 			cout << "a";
 		}
-*/
+
 		// Encontre a primeira cor disponível
 		for (int cr = 0; cr < vertices; cr++) {
 			if (available[cr] == false) {
 				resultado[daVez] = cr;// Atribua a cor encontrada
-				/*break;*/
+				continue;
 			}
 			cout << "b";
 		}

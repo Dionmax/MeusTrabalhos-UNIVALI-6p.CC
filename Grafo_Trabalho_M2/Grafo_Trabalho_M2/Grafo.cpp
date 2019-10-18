@@ -28,5 +28,5 @@ public:
 	virtual int Dijkstra(int orig, int dest) = 0;
 	//virtual int VerificarPlanaridade() = 0;
 	virtual void WelshPowell() = 0;
-	//virtual int DSATUR() = 0;
+	virtual int DSATUR() = 0;
 };

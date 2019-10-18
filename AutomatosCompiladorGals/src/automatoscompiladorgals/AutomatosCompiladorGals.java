@@ -11,10 +11,6 @@ import GalsClass.SemanticError;
 import GalsClass.Semantico;
 import GalsClass.Sintatico;
 import GalsClass.SyntaticError;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
-//import java.io.StringReader;
 
 /**
  *
@@ -27,7 +23,7 @@ public class AutomatosCompiladorGals {
      */
     public static void main(String[] args) {
         try {
-            Lexico lex = new Lexico("A = 1010; imprimir(A); B = A * 10; imprimir(B);");
+            Lexico lex = new Lexico("A = 10 ; B = 11; imprimir(B);");
 
             Sintatico sin = new Sintatico();
             Semantico sem = new Semantico();
