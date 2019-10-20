@@ -31,7 +31,7 @@ namespace Grafos_TrabalhoM1_CSharp
 
             //grafoLista.MostrarVizinhos(3);
 
-            //grafoLista.BuscaLargura(4);
+            grafoLista.BuscaLargura(4);
         }
     }
 }

@@ -29,4 +29,6 @@ public:
 	//virtual int VerificarPlanaridade() = 0;
 	virtual void WelshPowell() = 0;
 	virtual int DSATUR() = 0;
+	//Prim() = 0;
+	//Kruskal = 0;
 };

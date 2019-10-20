@@ -10,8 +10,6 @@ namespace Grafos_TrabalhoM1_CSharp.Entities.GrafoPackage
 
         public int Peso { get; set; }
 
-        //  public Vertice NodoDois { get; set; }
-
         public Aresta(Vertice nodo, int peso)
         {
             Nodo = nodo;
