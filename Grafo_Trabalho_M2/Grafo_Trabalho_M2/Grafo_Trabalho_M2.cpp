@@ -36,13 +36,13 @@ int main()
 	//GrafoMatriz grafo = GrafoMatriz(5, false, true);
 	GrafoLista grafo;// = GrafoLista();
 
-	string path = "C:/Temp/trabalho-65cores1.txt";
+	string path = "C:/Temp/50vertices25%Arestas.txt";
 	ifstream texto(path);
 
 	string line = "";
 
 	int valoresHead[4] = { 0, 0, 0, 0 };
-	int valoresBody[2] = { 0 , 0 };
+	int valoresBody[3] = { 0 , 0, 0 };
 
 	if (texto.is_open())
 	{
@@ -68,7 +68,7 @@ int main()
 				i++;
 			}
 
-			grafo.InserirAresta(valoresBody[0], valoresBody[1], 0);
+			grafo.InserirAresta(valoresBody[0], valoresBody[1], valoresBody[2]);
 
 			i = 0;
 		}
@@ -78,16 +78,7 @@ int main()
 	else
 		cout << "Unable to open file";
 
-	//cout << grafo.getNumeroVertices();
-	//grafo.InserirAresta(0, 1, 3);
-	//grafo.WelshPowell();
-	//grafo.DSATUR();
-	grafo.DSATUR(); // Tentamos muito, mas não funcionou os FOR, o algoritimos ignoras eles :(
-	//cout << grafo.PesoAresta(0, 1);
-	//grafo.BuscaLargura(2);
-	//grafo.BuscaProfundidade(0);
-	//cout << grafo.ExisteVizinho(2, 0);
-	//cout << grafo.ObterGrauDeSaida(0);
-	//cout << grafo.Dijkstra(0, 2) << endl;
-	//grafo.DesenharMatriz();
+	grafo.Prim();
+	//grafo.printarLista();
+
 }
