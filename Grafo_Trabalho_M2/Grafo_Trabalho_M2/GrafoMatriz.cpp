@@ -13,6 +13,7 @@ using namespace std;
 class GrafoMatriz : public Grafo
 {
 	int** grafoMatriz;
+	int* parent; //Usado no KrusKal
 
 public:
 	GrafoMatriz() : Grafo()
@@ -24,7 +25,7 @@ public:
 
 		for (int i = 0; i < vertices; i++)
 			for (int j = 0; j < vertices; j++)
-				grafoMatriz[i][j] = INFINITY;
+				grafoMatriz[i][j] = INT_MAX;
 	}
 
 	GrafoMatriz(int vertices, bool direcionado, bool ponderado)
@@ -38,6 +39,8 @@ public:
 		for (int i = 0; i < vertices; i++)
 			for (int j = 0; j < vertices; j++)
 				grafoMatriz[i][j] = INFINITY;
+
+		parent = new int[vertices];
 	}
 
 	void InserirAresta(int v1, int v2, int peso)
@@ -286,9 +289,55 @@ public:
 		cout << "\n" << "Soma total caminho minimo: " << soma << endl;
 	}
 
+	int find(int i)
+	{
+		while (parent[i] != i)
+			i = parent[i];
+
+		return i;
+	}
+
+	void union1(int i, int j)
+	{
+		int a = find(i);
+		int b = find(j);
+		parent[a] = b;
+	}
+
 	void Kruskal()
 	{
+		int mincost = 0; // Cost of min MST. 
 
+	// Initialize sets of disjoint sets. 
+		for (int i = 0; i < vertices; i++)
+			parent[i] = i;
+
+		// Include minimum weight edges one by one 
+		int edge_count = 0;
+		while (edge_count < vertices - 1) {
+
+			int minim = INT_MAX;
+			int a = -1;
+			int b = -1;
+
+			for (int i = 0; i < vertices; i++) {
+				for (int j = 0; j < vertices; j++) {
+					if (find(i) != find(j) && grafoMatriz[i][j] < minim) {
+						mincost += minim;
+						a = i;
+						b = j;
+					}
+				}
+			}
+
+			//cout << minim << endl;
+
+			union1(a, b);
+			edge_count++;
+			mincost += minim;
+		}
+
+		cout << "Custo minimo: " << mincost;
 	}
 
 	void DesenharMatriz()

@@ -18,16 +18,23 @@ class GrafoLista : public Grafo
 public:
 
 	list<pair<int, int>>* ListaAdj;
+	int* parent;
 
 	GrafoLista() : Grafo()
 	{
 		ListaAdj = new list<pair<int, int>>[0];
+
 	}
 
 	GrafoLista(int vertices, bool direcionado, bool ponderado)
 		: Grafo(vertices, direcionado, ponderado)
 	{
 		ListaAdj = new list<pair<int, int>>[vertices];
+		parent = new int[vertices];
+
+		for (int i = 0; i < vertices; i++)
+			parent[i] = i;
+
 	}
 
 	void InserirAresta(int v1, int v2, int peso)
@@ -478,9 +485,39 @@ public:
 		cout << "Resultado: " << result;
 	}
 
+	void union_set(int u, int v) {
+		parent[u] = parent[v];
+	}
+
+	int find_set(int i) {
+		// If i is the parent of itself
+		if (i == parent[i])
+			return i;
+		else
+			return find_set(parent[i]);
+	}
+	//list<pair<int, int>>* T = new list<pair<int, int>>[vertices];
+	list<int>* T = new list<int>[vertices];
+
 	void Kruskal()
 	{
+		int i, uRep, vRep;
 
+		ListaAdj->sort();
+
+		for (i = 1; i < ListaAdj->size(); i++) {
+			uRep = find_set(ListaAdj[i].front().first);
+			vRep = find_set(ListaAdj[i - 1].front().first);
+			if (uRep != vRep) {
+				T[i].push_back(ListaAdj[i].front().second); // add to tree
+				union_set(uRep, vRep);
+			}
+		}
+
+		for (int i = 0; i < vertices; i++)
+		{
+			cout << T[i].front() << endl;
+		}
 	}
 
 	list<pair<int, int>> getLista()
