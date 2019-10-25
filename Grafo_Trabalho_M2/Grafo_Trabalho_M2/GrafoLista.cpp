@@ -416,11 +416,7 @@ public:
 
 	void Prim()
 	{
-		// Create a priority queue to store vertices that 
-	// are being preinMST. This is weird syntax in C++. 
-	// Refer below link for details of this syntax 
-	// http://geeksquiz.com/implement-min-heap-using-stl/ 
-		priority_queue< pair<int,int>, vector <pair<int, int>>, greater<pair<int, int>> > pq;
+		priority_queue< pair<int, int>, vector <pair<int, int>>, greater<pair<int, int>> > pq;
 
 		int src = 0; // Taking vertex 0 as source 
 
@@ -475,8 +471,16 @@ public:
 		}
 
 		// Print edges of MST using parent array 
-		for (int i = 1; i < vertices; ++i)
-			printf("%d - %d\n", parent[i], i);
+		int result = 0;
+		for (int i = 1; i < vertices; ++i) {
+			result += parent[i];
+		}
+		cout << "Resultado: " << result;
+	}
+
+	void Kruskal()
+	{
+
 	}
 
 	list<pair<int, int>> getLista()

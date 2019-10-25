@@ -30,5 +30,5 @@ public:
 	virtual void WelshPowell() = 0;
 	virtual int DSATUR() = 0;
 	virtual void Prim() = 0;
-	//Kruskal = 0;
+	virtual void Kruskal() = 0;
 };

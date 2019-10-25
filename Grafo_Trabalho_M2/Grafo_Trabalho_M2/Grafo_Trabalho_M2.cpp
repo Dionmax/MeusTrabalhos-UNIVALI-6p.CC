@@ -33,8 +33,7 @@ vector<string> split(string str, char delimiter = ' ')
 
 int main()
 {
-	//GrafoMatriz grafo = GrafoMatriz(5, false, true);
-	GrafoLista grafo;// = GrafoLista();
+	GrafoLista grafo;
 
 	string path = "C:/Temp/50vertices25%Arestas.txt";
 	ifstream texto(path);
