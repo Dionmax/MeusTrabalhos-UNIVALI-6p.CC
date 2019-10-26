@@ -250,7 +250,7 @@ public:
 		for (int i = 0; i < vertices; i++)
 			key[i] = INT_MAX, mstSet[i] = false;
 
-	
+
 		key[0] = 0;
 		parent[0] = -1;
 

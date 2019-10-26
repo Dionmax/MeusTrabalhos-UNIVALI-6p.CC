@@ -18,6 +18,7 @@ class GrafoLista : public Grafo
 public:
 
 	list<pair<int, int>>* ListaAdj;
+	list<pair<int, pair<int, int>>>* ListaAdjPairPair;
 	int* parent;
 
 	GrafoLista() : Grafo()
@@ -30,6 +31,7 @@ public:
 		: Grafo(vertices, direcionado, ponderado)
 	{
 		ListaAdj = new list<pair<int, int>>[vertices];
+		ListaAdjPairPair = new list<pair<int, pair<int, int>>>[vertices];
 		parent = new int[vertices];
 
 		for (int i = 0; i < vertices; i++)
@@ -43,6 +45,8 @@ public:
 
 		if (!direcionado)
 			ListaAdj[v2].push_back(make_pair(v1, peso));
+
+		ListaAdjPairPair->push_back({ peso, { v1,v2 } });
 	}
 
 	int ObterGrauDeSaida(int v)
@@ -386,7 +390,7 @@ public:
 			for (int cr = 0; cr < vertices; cr++) {
 				if (available[cr] == false) {
 					resultado[daVez] = cr;// Atribua a cor encontrada
-					continue;
+					continue; // Era um Break
 				}
 				cout << "b";
 			}
@@ -445,12 +449,7 @@ public:
 		/* Looping till priority queue becomes empty */
 		while (!pq.empty())
 		{
-			// The first vertex in pair is the minimum key 
-			// vertex, extract it from priority queue. 
-			// vertex label is stored in second of pair (it 
-			// has to be done this way to keep the vertices 
-			// sorted key (key must be first item 
-			// in pair) 
+
 			int u = pq.top().second;
 			pq.pop();
 
@@ -490,34 +489,109 @@ public:
 	}
 
 	int find_set(int i) {
-		// If i is the parent of itself
-		if (i == parent[i])
-			return i;
-		else
-			return find_set(parent[i]);
+		while (parent[i] != i)
+			i = parent[i];
+
+		return i;
 	}
-	//list<pair<int, int>>* T = new list<pair<int, int>>[vertices];
-	list<int>* T = new list<int>[vertices];
 
-	void Kruskal()
+
+	// To represent Disjoint Sets 
+	struct DisjointSets
 	{
-		int i, uRep, vRep;
+		int* parent, * rnk;
+		int n;
 
-		ListaAdj->sort();
+		// Constructor. 
+		DisjointSets(int n)
+		{
+			// Allocate memory 
+			this->n = n;
+			parent = new int[n + 1];
+			rnk = new int[n + 1];
 
-		for (i = 1; i < ListaAdj->size(); i++) {
-			uRep = find_set(ListaAdj[i].front().first);
-			vRep = find_set(ListaAdj[i - 1].front().first);
-			if (uRep != vRep) {
-				T[i].push_back(ListaAdj[i].front().second); // add to tree
-				union_set(uRep, vRep);
+			// Initially, all vertices are in 
+			// different sets and have rank 0. 
+			for (int i = 0; i <= n; i++)
+			{
+				rnk[i] = 0;
+
+				//every element is parent of itself 
+				parent[i] = i;
 			}
 		}
 
-		for (int i = 0; i < vertices; i++)
+		// Find the parent of a node 'u' 
+		// Path Compression 
+		int find(int u)
 		{
-			cout << T[i].front() << endl;
+			/* Make the parent of the nodes in the path
+			   from u--> parent[u] point to parent[u] */
+			if (u != parent[u])
+				parent[u] = find(parent[u]);
+			return parent[u];
 		}
+
+		// Union by rank 
+		void merge(int x, int y)
+		{
+			x = find(x), y = find(y);
+
+			/* Make tree with smaller height
+			   a subtree of the other tree  */
+			if (rnk[x] > rnk[y])
+				parent[y] = x;
+			else // If rnk[x] <= rnk[y] 
+				parent[x] = y;
+
+			if (rnk[x] == rnk[y])
+				rnk[y]++;
+		}
+	};
+
+	list<pair<int, int>>* T = new list<pair<int, int>>[vertices];
+	//list<int>* T = new list<int>[vertices];
+	typedef  pair<int, int> iPair;
+	vector< pair<int, iPair> > edges;
+
+	void Kruskal()
+	{
+		int mst_wt = 0; // Initialize result 
+
+	// Sort edges in increasing order on basis of cost 
+		sort(edges.begin(), edges.end());
+
+		// Create disjoint sets 
+		DisjointSets ds(vertices);
+
+		// Iterate through all sorted edges 
+		list< pair<int, pair<int, int>>>::iterator it;
+		for (it = ListaAdjPairPair->begin(); it != ListaAdjPairPair->end(); it++)
+		{
+			int u = it->second.first;
+			int v = it->second.second;
+
+			int set_u = ds.find(u);
+			int set_v = ds.find(v);
+
+			// Check if the selected edge is creating 
+			// a cycle or not (Cycle is created if u 
+			// and v belong to same set) 
+			if (set_u != set_v)
+			{
+				// Current edge will be in the MST 
+				// so print it 
+				cout << u << " - " << v << endl;
+
+				// Update MST weight 
+				mst_wt += it->first;
+
+				// Merge two sets 
+				ds.merge(set_u, set_v);
+			}
+		}
+
+		cout << mst_wt;
 	}
 
 	list<pair<int, int>> getLista()
