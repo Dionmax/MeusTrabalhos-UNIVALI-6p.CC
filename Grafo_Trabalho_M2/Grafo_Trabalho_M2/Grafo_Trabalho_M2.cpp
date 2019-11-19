@@ -33,8 +33,8 @@ vector<string> split(string str, char delimiter = ' ')
 
 int main()
 {
-	GrafoLista grafo;
-	//GrafoMatriz grafo;
+	//GrafoLista grafo;
+	GrafoMatriz grafo;
 
 	string path = "C:/Temp/50vertices25%Arestas.txt";
 	ifstream texto(path);
@@ -57,8 +57,8 @@ int main()
 
 		i = 0;
 
-		grafo = GrafoLista(valoresHead[0], true && valoresHead[2], true && valoresHead[3]);
-		//grafo = GrafoMatriz(valoresHead[0], true && valoresHead[2], true && valoresHead[3]);
+		//grafo = GrafoLista(valoresHead[0], true && valoresHead[2], true && valoresHead[3]);
+		grafo = GrafoMatriz(valoresHead[0], true && valoresHead[2], true && valoresHead[3]);
 
 		while (!texto.eof())
 		{
@@ -80,6 +80,7 @@ int main()
 		cout << "Unable to open file";
 
 	grafo.Kruskal();
+	//grafo.Prim();
 	//grafo.printarLista();
 	//grafo.DesenharMatriz();
 }

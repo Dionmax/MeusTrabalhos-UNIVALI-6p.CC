@@ -234,19 +234,16 @@ public:
 
 	void Prim()
 	{
-		// Array to store constructed MST  
 		int* parent;
 		parent = new int[vertices];
 
-		// Key values used to pick minimum weight edge in cut  
 		int* key;
 		key = new int[vertices];
 
-		// To represent set of vertices not yet included in MST  
 		bool* mstSet;
 		mstSet = new bool[vertices];
 
-		// Initialize all keys as INFINITE  
+
 		for (int i = 0; i < vertices; i++)
 			key[i] = INT_MAX, mstSet[i] = false;
 
@@ -293,13 +290,11 @@ public:
 
 	void Kruskal()
 	{
-		int mincost = 0; // Cost of min MST. 
+		int mincost = 0;
 
-	// Initialize sets of disjoint sets. 
 		for (int i = 0; i < vertices; i++)
 			parent[i] = i;
 
-		// Include minimum weight edges one by one 
 		int edge_count = 0;
 		while (edge_count < vertices - 1) {
 
@@ -311,8 +306,9 @@ public:
 				for (int j = 0; j < vertices; j++) {
 					if (find(i) != find(j) && grafoMatriz[i][j] < minim) {
 
-						if (grafoMatriz[i][j] != 0) // Se 500 for errado, tira esse IF
-							minim = grafoMatriz[i][j];
+						//if (grafoMatriz[i][j] != 0) // Se 500 for errado, tira esse IF
+						minim = grafoMatriz[i][j];
+						mincost += minim;
 
 						//mincost += minim;
 						a = i;
@@ -328,7 +324,7 @@ public:
 
 			union1(a, b);
 			edge_count++;
-			mincost += minim;
+			//mincost += minim;
 
 			minim = 0;
 		}

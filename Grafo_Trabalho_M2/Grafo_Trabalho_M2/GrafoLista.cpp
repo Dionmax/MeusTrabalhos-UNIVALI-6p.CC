@@ -246,15 +246,11 @@ public:
 		for (int u = 0; u < vertices; u++)
 			resultado[u] = -1;  // no color is assigned to u 
 
-		// Uma array temporária para armazenar as cores disponíveis. Verdadeiro
-		// valor de [cr] disponível significaria que a cor cr é
-		// atribuído a um de seus vértices adjacentes
 		bool* available;
 		available = new bool[vertices];
 		for (int cr = 0; cr < vertices; cr++)
 			available[cr] = false;
 
-		//achar o maior grau e botar na fila pra verificacao
 		int grauVertice = ObterGrauDeSaida(0);
 		int primeiro = 0;
 		for (int i = 0; i < vertices; i++)
@@ -429,46 +425,34 @@ public:
 	{
 		priority_queue< pair<int, int>, vector <pair<int, int>>, greater<pair<int, int>> > pq;
 
-		int src = 0; // Taking vertex 0 as source 
+		int src = 0;
 
-		// Create a vector for keys and initialize all 
-		// keys as infinite (INF) 
 		vector<int> key(vertices, INFINITO);
 
-		// To store parent array which in turn store MST 
 		vector<int> parent(vertices, -1);
 
-		// To keep track of vertices included in MST 
 		vector<bool> inMST(vertices, false);
 
-		// Insert source itself in priority queue and initialize 
-		// its key as 0. 
 		pq.push(make_pair(0, src));
 		key[src] = 0;
 
-		/* Looping till priority queue becomes empty */
 		while (!pq.empty())
 		{
 
 			int u = pq.top().second;
 			pq.pop();
 
-			inMST[u] = true;  // Include vertex in MST 
+			inMST[u] = true;
 
-			// 'i' is used to get all adjacent vertices of a vertex 
 			list< pair<int, int> >::iterator i;
 			for (i = ListaAdj[u].begin(); i != ListaAdj[u].end(); ++i)
 			{
-				// Get vertex label and weight of current adjacent 
-				// of u. 
+
 				int v = (*i).first;
 				int weight = (*i).second;
 
-				//  If v is not in MST and weight of (u,v) is smaller 
-				// than current key of v 
 				if (inMST[v] == false && key[v] > weight)
 				{
-					// Updating key of v 
 					key[v] = weight;
 					pq.push(make_pair(key[v], v));
 					parent[v] = u;
@@ -476,7 +460,6 @@ public:
 			}
 		}
 
-		// Print edges of MST using parent array 
 		int result = 0;
 		for (int i = 1; i < vertices; ++i) {
 			result += parent[i];
@@ -495,50 +478,38 @@ public:
 		return i;
 	}
 
-
-	// To represent Disjoint Sets 
 	struct DisjointSets
 	{
 		int* parent, * rnk;
 		int n;
 
-		// Constructor. 
 		DisjointSets(int n)
 		{
-			// Allocate memory 
 			this->n = n;
 			parent = new int[n + 1];
 			rnk = new int[n + 1];
 
-			// Initially, all vertices are in 
-			// different sets and have rank 0. 
 			for (int i = 0; i <= n; i++)
 			{
 				rnk[i] = 0;
 
-				//every element is parent of itself 
 				parent[i] = i;
 			}
 		}
 
-		// Find the parent of a node 'u' 
-		// Path Compression 
 		int find(int u)
 		{
-			/* Make the parent of the nodes in the path
-			   from u--> parent[u] point to parent[u] */
+
 			if (u != parent[u])
 				parent[u] = find(parent[u]);
 			return parent[u];
 		}
 
-		// Union by rank 
 		void merge(int x, int y)
 		{
 			x = find(x), y = find(y);
 
-			/* Make tree with smaller height
-			   a subtree of the other tree  */
+
 			if (rnk[x] > rnk[y])
 				parent[y] = x;
 			else // If rnk[x] <= rnk[y] 
@@ -556,15 +527,12 @@ public:
 
 	void Kruskal()
 	{
-		int mst_wt = 0; // Initialize result 
+		int mst_wt = 0;
 
-	// Sort edges in increasing order on basis of cost 
 		sort(edges.begin(), edges.end());
 
-		// Create disjoint sets 
 		DisjointSets ds(vertices);
 
-		// Iterate through all sorted edges 
 		list< pair<int, pair<int, int>>>::iterator it;
 		for (it = ListaAdjPairPair->begin(); it != ListaAdjPairPair->end(); it++)
 		{
@@ -574,19 +542,12 @@ public:
 			int set_u = ds.find(u);
 			int set_v = ds.find(v);
 
-			// Check if the selected edge is creating 
-			// a cycle or not (Cycle is created if u 
-			// and v belong to same set) 
 			if (set_u != set_v)
 			{
-				// Current edge will be in the MST 
-				// so print it 
 				cout << u << " - " << v << endl;
 
-				// Update MST weight 
 				mst_wt += it->first;
 
-				// Merge two sets 
 				ds.merge(set_u, set_v);
 			}
 		}
