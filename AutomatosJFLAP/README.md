@@ -14,4 +14,4 @@
 ###  Máquina de Turing que reconhece as palavras da seguinte linguagem: L = { ww | w ϵ {a, b, c} * }
 - Pode ser encontrada <a href= "https://github.com/Dionmax/MeusTrabalhos-UNIVALI-6p.CC/tree/master/AutomatosJFLAP/ReconhecerConjuntoDePalavras">nessa</a> pasta -> ReconhecerConjuntoDePalavras
 
-<img src="ReadMe.IMG/AceitaConjuntoWWeA,B,C.png" alt="Somador Binario JFLAP" >
+<img src="ReadMe.IMG/AceitaConjuntoWWeA,B,C.png" alt="Reconhece Palavra" >
